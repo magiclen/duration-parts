@@ -1,6 +1,6 @@
 [package]
 name = "duration-parts"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2024"
 rust-version = "1.93"
@@ -18,8 +18,6 @@ jiff = { version = "0.2.18", optional = true, default-features = false }
 time = { version = "0.3.46", optional = true, default-features = false }
 
 [features]
-default = ["jiff", "time", "chrono"]
-
 chrono = ["dep:chrono"]
 jiff = ["dep:jiff"]
 time = ["dep:time"]
