@@ -1,0 +1,32 @@
+[package]
+name = "duration-parts"
+version = "0.1.0"
+authors = ["Magic Len <len@magiclen.org>"]
+edition = "2024"
+rust-version = "1.93"
+repository = "https://github.com/magiclen/duration-parts"
+homepage = "https://magiclen.org/duration-parts"
+keywords = ["duration", "formatter", "human", "time"]
+categories = ["no-std", "date-and-time", "value-formatting"]
+description = "A lightweight duration decomposition and formatting crate."
+license = "MIT"
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+
+[dependencies]
+chrono = { version = "0.4", optional = true, default-features = false }
+jiff = { version = "0.2", optional = true, default-features = false }
+time = { version = "0.3", optional = true, default-features = false }
+
+[features]
+default = []
+
+chrono = ["dep:chrono"]
+jiff = ["dep:jiff"]
+time = ["dep:time"]
+
+format-en-us-unsigned-natural = []
+format-zh-tw-unsigned-natural = []
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
