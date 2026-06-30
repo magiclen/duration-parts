@@ -16,6 +16,15 @@ impl TryFrom<DurationParts> for Duration {
 
     #[inline]
     fn try_from(duration_parts: DurationParts) -> Result<Self, Self::Error> {
-        Ok(Duration::nanoseconds_i128(duration_parts.to_nanoseconds()))
+        const MIN_NANOS: i128 = Duration::MIN.whole_nanoseconds();
+        const MAX_NANOS: i128 = Duration::MAX.whole_nanoseconds();
+
+        let nanos = duration_parts.to_nanoseconds();
+
+        if !(MIN_NANOS..=MAX_NANOS).contains(&nanos) {
+            return Err(DurationPartsConversionError);
+        }
+
+        Ok(Duration::nanoseconds_i128(nanos))
     }
 }

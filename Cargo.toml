@@ -18,7 +18,7 @@ jiff = { version = "0.2", optional = true, default-features = false }
 time = { version = "0.3", optional = true, default-features = false }
 
 [features]
-default = []
+default = ["jiff", "time", "chrono"]
 
 chrono = ["dep:chrono"]
 jiff = ["dep:jiff"]

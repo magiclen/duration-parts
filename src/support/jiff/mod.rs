@@ -16,6 +16,7 @@ impl TryFrom<DurationParts> for SignedDuration {
 
     #[inline]
     fn try_from(duration_parts: DurationParts) -> Result<Self, Self::Error> {
-        Ok(SignedDuration::from_nanos_i128(duration_parts.to_nanoseconds()))
+        SignedDuration::try_from_nanos_i128(duration_parts.to_nanoseconds())
+            .ok_or(DurationPartsConversionError)
     }
 }

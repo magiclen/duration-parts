@@ -22,6 +22,14 @@ impl TryFrom<DurationParts> for Duration {
             return Err(DurationPartsConversionError);
         }
 
-        Ok(Duration::from_nanos_u128(nanos as u128))
+        const MAX_NANOS: u128 = Duration::MAX.as_nanos();
+
+        let nanos = nanos as u128;
+
+        if nanos > MAX_NANOS {
+            return Err(DurationPartsConversionError);
+        }
+
+        Ok(Duration::from_nanos_u128(nanos))
     }
 }

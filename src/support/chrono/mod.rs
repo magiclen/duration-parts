@@ -20,7 +20,7 @@ impl TryFrom<DurationParts> for TimeDelta {
     fn try_from(duration_parts: DurationParts) -> Result<Self, Self::Error> {
         let nanos = duration_parts.to_nanoseconds();
 
-        if nanos < i64::MIN as i128 || nanos > i64::MAX as i128 {
+        if !(i64::MIN as i128..=i64::MAX as i128).contains(&nanos) {
             return Err(DurationPartsConversionError);
         }
 
