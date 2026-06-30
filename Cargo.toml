@@ -13,9 +13,9 @@ license = "MIT"
 include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
 
 [dependencies]
-chrono = { version = "0.4", optional = true, default-features = false }
-jiff = { version = "0.2", optional = true, default-features = false }
-time = { version = "0.3", optional = true, default-features = false }
+chrono = { version = "0.4.34", optional = true, default-features = false }
+jiff = { version = "0.2.18", optional = true, default-features = false }
+time = { version = "0.3.46", optional = true, default-features = false }
 
 [features]
 default = ["jiff", "time", "chrono"]
