@@ -184,8 +184,6 @@ impl DurationParts {
     }
 
     /// Creates a new `DurationParts` instance from a signed millisecond count.
-    ///
-    /// Returns `None` if the total milliseconds cannot be represented as a `DurationParts`.
     #[inline]
     pub const fn from_signed_total_milliseconds(total_milliseconds: i64) -> Self {
         let (sign, total_milliseconds_unsigned) = if total_milliseconds < 0 {
@@ -202,8 +200,6 @@ impl DurationParts {
     }
 
     /// Creates a new `DurationParts` instance from an unsigned millisecond count. (always positive)
-    ///
-    /// Returns `None` if the total milliseconds cannot be represented as a `DurationParts`.
     pub const fn from_unsigned_total_milliseconds(total_milliseconds: u64) -> Self {
         let sign = Sign::Positive;
 
@@ -239,8 +235,6 @@ impl DurationParts {
     }
 
     /// Creates a new `DurationParts` instance from a signed second count.
-    ///
-    /// Returns `None` if the total seconds cannot be represented as a `DurationParts`.
     #[inline]
     pub const fn from_signed_total_seconds(total_seconds: i64) -> Self {
         let (sign, total_seconds_unsigned) = if total_seconds < 0 {
@@ -249,7 +243,7 @@ impl DurationParts {
             (Sign::Positive, total_seconds as u64)
         };
 
-        let mut parts = Self::from_unsigned_total_milliseconds(total_seconds_unsigned * 1_000);
+        let mut parts = Self::from_unsigned_total_seconds(total_seconds_unsigned);
 
         parts.sign = sign;
 
@@ -257,8 +251,6 @@ impl DurationParts {
     }
 
     /// Creates a new `DurationParts` instance from an unsigned second count. (always positive)
-    ///
-    /// Returns `None` if the total seconds cannot be represented as a `DurationParts`.
     pub const fn from_unsigned_total_seconds(total_seconds: u64) -> Self {
         let sign = Sign::Positive;
 
@@ -344,9 +336,17 @@ impl DurationParts {
             && self.nanoseconds == 0
     }
 
-    /// Returns a new `DurationParts` instance with the sign inverted.
+    /// Returns a new `DurationParts` instance with a positive sign.
     #[inline]
     pub const fn abs(mut self) -> Self {
+        self.sign = Sign::Positive;
+
+        self
+    }
+
+    /// Returns a new `DurationParts` instance with the sign flipped.
+    #[inline]
+    pub const fn negate(mut self) -> Self {
         self.sign = self.sign.invert();
 
         self

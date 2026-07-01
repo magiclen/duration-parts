@@ -74,6 +74,7 @@ assert_eq!("1時間1分2秒", duration_parts.format::<JaJpDemo>().to_string());
 ```
 */
 
+#![no_std]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod formatter;

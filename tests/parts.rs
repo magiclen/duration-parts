@@ -1,6 +1,6 @@
 use core::time::Duration;
 
-use duration_parts::DurationParts;
+use duration_parts::{DurationParts, Sign};
 
 #[test]
 fn duration_to_parts() {
@@ -53,4 +53,28 @@ fn duration_parts_from_nanoseconds() {
         DurationParts::new(duration_parts::Sign::Positive, 1, 2, 4, 8, 0, 0, 0).unwrap(),
         duration_parts
     );
+}
+
+#[test]
+fn duration_parts_abs_keeps_positive_positive() {
+    let duration_parts = DurationParts::new(Sign::Positive, 1, 2, 4, 8, 0, 0, 0).unwrap();
+
+    assert_eq!(duration_parts.clone(), duration_parts.abs());
+}
+
+#[test]
+fn duration_parts_negate_flips_sign() {
+    let positive = DurationParts::new(Sign::Positive, 1, 2, 4, 8, 0, 0, 0).unwrap();
+    let negative = DurationParts::new(Sign::Negative, 1, 2, 4, 8, 0, 0, 0).unwrap();
+
+    assert_eq!(negative, positive.clone().negate());
+    assert_eq!(positive, negative.negate());
+}
+
+#[test]
+fn duration_parts_from_signed_seconds_handles_i64_min() {
+    let duration_parts = DurationParts::from_signed_total_seconds(i64::MIN);
+
+    assert_eq!(Sign::Negative, duration_parts.sign());
+    assert_eq!((i64::MIN as i128) * 1_000_000_000, duration_parts.to_nanoseconds());
 }
