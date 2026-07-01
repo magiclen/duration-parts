@@ -71,3 +71,15 @@ let duration_parts: DurationParts = duration.try_into().unwrap();
 
 assert_eq!("1時間1分2秒", duration_parts.format::<JaJpDemo>().to_string());
 ```
+
+## Crates.io
+
+https://crates.io/crates/duration-parts
+
+## Documentation
+
+https://docs.rs/duration-parts
+
+## License
+
+[MIT](LICENSE)
